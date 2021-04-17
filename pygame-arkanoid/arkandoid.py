@@ -1,7 +1,7 @@
 import pygame
 from GameObjects.Player import Player
-from GameObjects.Klocek import Klocek
 from GameObjects.Ball import Ball
+from GameObjects.LevelGenerator import LevelGenerator
 from constants import  SCREEN_WIDTH,SCREEN_HEIGHT
 from pygame.locals import KEYDOWN, K_ESCAPE, K_UP, K_DOWN, K_LEFT, K_RIGHT, QUIT
 
@@ -18,15 +18,11 @@ pygame.display.set_caption("Arkanoid UJ")
 
 player = Player(305,450)
 
-klocek = Klocek(20, 20)
-
 ball = Ball(315, 440)  
 
-klocki = pygame.sprite.Group()
-klocki.add(klocek)
+klocki = LevelGenerator.generate_level()
 
-def generate_level():
-    pass
+
 
 def update_ball_position():
     pass
@@ -35,6 +31,7 @@ def update_ball_position():
 pygame.mixer.music.load("sounds/intro.mp3")
 pygame.mixer.music.set_volume(0.2)
 pygame.mixer.music.play(-1)
+
 
 while uruchomiona:
 
