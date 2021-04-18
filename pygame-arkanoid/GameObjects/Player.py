@@ -8,6 +8,8 @@ class Player(pygame.sprite.Sprite):
 
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
+        #self.surf = pygame.Surface((70, 10))
+        #self.surf.fill((255, 0, 0))
         self.image1 = pygame.image.load("images/50-Breakout-Tiles.png").convert()
         self.surf = pygame.transform.scale(self.image1, (90, 20))
         self.rect = self.surf.get_rect(center=(x + 45, y + 10))

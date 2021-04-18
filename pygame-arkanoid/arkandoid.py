@@ -1,18 +1,19 @@
+from gameconfig import GameConfig
 import pygame
 from GameObjects.Player import Player
 from GameObjects.Ball import Ball
 from GameObjects.LevelGenerator import LevelGenerator
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
-from pygame.locals import KEYDOWN, K_ESCAPE, K_UP, K_DOWN, K_LEFT, K_RIGHT, QUIT, K_SPACE, K_p
-
+from pygame.locals import KEYDOWN, K_ESCAPE, K_SPACE
 pygame.init()
+from menugame import generate_menu
+
+
 screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
 clock = pygame.time.Clock()
 
-uruchomiona = True
 
-score = 0
-lives = 3
+
 pygame.display.set_caption("Arkanoid UJ")
 
 player = Player(SCREEN_WIDTH/2 - 45 , 450)
@@ -23,12 +24,16 @@ klocki = LevelGenerator.generate_level()
 pygame.mixer.music.load("sounds/intro.mp3")
 pygame.mixer.music.set_volume(0.2)
 pygame.mixer.music.play(-1)
-pause = False
 
+lives = GameConfig.lives
+score = GameConfig.score
+pause = False
+uruchomiona = True
 while uruchomiona:
 
+    events = pygame.event.get();
     # Eventy , Klawiatura
-    for event in pygame.event.get():
+    for event in events:
         if event.type == pygame.QUIT:
             uruchomiona = False
         elif event.type == KEYDOWN:
@@ -38,6 +43,15 @@ while uruchomiona:
                 ball.run_ball()
             if event.key == pygame.K_p and ball.start == True:
                     pause = not pause
+
+    if GameConfig.show_menu == True:
+        try:
+            generate_menu(screen,events)
+            clock.tick(60)
+            pygame.display.update()
+        except:
+            uruchomiona = False
+        continue;
 
     # Pauza w grze
     if pause :
