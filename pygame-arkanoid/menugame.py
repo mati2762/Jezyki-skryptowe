@@ -1,8 +1,12 @@
 import pygame
 from gameconfig import GameConfig
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT
+import os
+
 
 def on_click_button_1():
     GameConfig.show_menu = False
+
 
 def on_click_button_2():
     pygame.quit()
@@ -37,12 +41,37 @@ def button_check(info, event):
             action()
 
 
-button_1 = button_create("GAME", (200, 100, 200, 75), (255, 0, 0), (0, 255, 0), on_click_button_1)
-button_2 = button_create("EXIT", (200, 200, 200, 75), (255, 0, 0), (0, 255, 0), on_click_button_2)
+button_1 = button_create("GAME", ((SCREEN_WIDTH / 2) - 100, 100, 200, 75), (111, 111, 111), (200, 200, 200),
+                         on_click_button_1)
+button_2 = button_create("EXIT", ((SCREEN_WIDTH / 2) - 100, 200, 200, 75), (111, 111, 111), (200, 200, 200),
+                         on_click_button_2)
+
+mode = 'r' if os.path.exists("./bestScores.txt") else 'w+'
+file = open("bestScores.txt", mode)
+for score in file:
+    GameConfig.bestScores.append(int(score))
+file.close()
+
 
 def generate_menu(screen, events):
     button_draw(screen, button_1)
     button_draw(screen, button_2)
+
+    # Wyświetlanie 5 najlepszych wyników
+    if GameConfig.bestScores.__len__() > 0:
+        font = pygame.font.Font(None, 34)
+        text = font.render("Best Scores", 1, (255, 255, 255))
+        screen.blit(text, ((SCREEN_WIDTH / 2 + 30) - 100, 300))
+
+        font = pygame.font.Font(None, 24)
+        index = 0
+        for score in GameConfig.bestScores:
+            text = font.render(str(index + 1) + ".  " + str(score), 1, (255, 255, 255))
+            screen.blit(text, ((SCREEN_WIDTH / 2 + 70) - 100, 330 + index * 20))
+            index += 1
+            if index == 5:
+                break
+
     for event in events:
         button_check(button_1, event)
         button_check(button_2, event)

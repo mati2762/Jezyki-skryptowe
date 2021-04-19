@@ -46,6 +46,7 @@ while uruchomiona:
 
     if GameConfig.show_menu == True:
         try:
+            screen.fill((76, 76, 76))
             generate_menu(screen,events)
             clock.tick(60)
             pygame.display.update()
@@ -93,6 +94,7 @@ while uruchomiona:
         player = Player(SCREEN_WIDTH / 2 - 45, 450)
         ball = Ball(SCREEN_WIDTH / 2, 435)
         lives -=1
+        GameConfig.save_score(score)
         score = 0
         klocki = LevelGenerator.generate_level()
 
