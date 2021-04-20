@@ -28,7 +28,7 @@ score = GameConfig.score
 pause = False
 uruchomiona = True
 level = 1
-gameover = False
+stopgame = False
 while uruchomiona:
 
     events = pygame.event.get();
@@ -40,7 +40,7 @@ while uruchomiona:
             if event.key == K_ESCAPE:
                 uruchomiona = False
             if event.key == K_SPACE:
-                if gameover == True:
+                if stopgame == True:
                     GameConfig.show_menu = True
                 else:
                     ball.run_ball()
@@ -58,17 +58,27 @@ while uruchomiona:
             uruchomiona = False
         continue;
 
+    # End Game
+    if level == 6:
+        screen.fill((0, 0, 0))
+        font = pygame.font.Font(None, 44)
+        text = font.render("You Win", 1, (0, 255, 0))
+        screen.blit(text, ((SCREEN_WIDTH / 2) - 70, (SCREEN_HEIGHT / 2) - 30))
+        stopgame = True;
+        clock.tick(60)
+        pygame.display.flip()
+        continue;
+
     # Game Over
     if lives == -1:
         screen.fill((0, 0, 0))
         font = pygame.font.Font(None, 44)
         text = font.render("Game Over", 1, (255, 255, 255))
-        screen.blit(text, ((SCREEN_WIDTH / 2) - 90 , (SCREEN_HEIGHT / 2) -30 ))
-        gameover = True;
+        screen.blit(text, ((SCREEN_WIDTH / 2) - 90, (SCREEN_HEIGHT / 2) - 30))
+        stopgame = True;
         clock.tick(60)
         pygame.display.flip()
         continue;
-
 
     # Pauza w grze
     if pause:
@@ -134,7 +144,6 @@ while uruchomiona:
         screen.blit(text, ((SCREEN_WIDTH / 2) - 160, (SCREEN_HEIGHT / 2) + 70))
         text = font.render("Level " + str(level), 1, (255, 255, 255))
         screen.blit(text, ((SCREEN_WIDTH / 2) - 50, (SCREEN_HEIGHT / 2) + 30))
-
 
     clock.tick(60)
     pygame.display.flip()
