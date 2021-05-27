@@ -2,3 +2,6 @@ pygame-arkanoid/.idea
 pygame-arkanoid/__pycache__
 pygame-arkanoid/bestScores.txt
 pygame-arkanoid/GameObjects/__pycache__
+phaser3-runner/node_modules
+phaser3-runner/dist
+phaser3-runner/.cache
