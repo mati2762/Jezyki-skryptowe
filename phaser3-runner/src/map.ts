@@ -5,8 +5,10 @@ export function createMap() {
     //Klocek 0
     let height = this.cameras.main._height;
     this.platforms = this.physics.add.staticGroup();
+    this.kolce = this.physics.add.staticGroup();
+    this.meta = this.physics.add.staticGroup();
 
-    let width = 30
+    let width = 60
     for (let i = 0; i < width; i++) {
         for (let j = 0; j < 5; j++) {
             if (j == 0) {
@@ -29,10 +31,21 @@ export function createMap() {
         this.platforms.create(((width - 1) * 70) + 35, height - (i * 70) - 35, 'sheet', 24);
     }
 
+    //kolce
+    for (let i = 12; i < width - 1; i++) {
+        this.kolce.create((i * 70) + 35, height - 14 - 70, 'kolce');
+    }
+
+    this.meta.create(4050, height - 840, 'lampka');
 
     createPlatform.bind(this)(750, height - 200, 5);
     createPlatform.bind(this)(450, height - 350, 2);
     createPlatform.bind(this)(750, height - 500, 10);
+    createPlatform.bind(this)(1750, height - 500, 3);
+    createPlatform.bind(this)(2250, height - 570, 2);
+    createPlatform.bind(this)(2550, height - 670, 5);
+    createPlatform.bind(this)(3250, height - 670, 3);
+    createPlatform.bind(this)(3850, height - 770, 3);
 }
 
 

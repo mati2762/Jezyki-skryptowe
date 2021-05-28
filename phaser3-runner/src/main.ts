@@ -25,11 +25,12 @@ var game = new Phaser.Game(config);
 
 function preload() {
     this.cameras.main.setBackgroundColor('#1F9EC8')
-
     this.load.image('platform', 'img/platformIndustrial_003.png');
+    this.load.image('lampka', 'img/platformIndustrial_040.png');
     this.load.image('ground', 'img/platformIndustrial_005.png');
     this.load.image('platform_left', 'img/platformIndustrial_017.png');
     this.load.image('platform_right', 'img/platformIndustrial_018.png');
+    this.load.image('kolce', 'img/platformIndustrial_052.png');
     this.load.spritesheet('sheet', 'img/platformIndustrial_sheet.png',
         { frameWidth: 70, frameHeight: 70 });
 
@@ -41,6 +42,8 @@ function preload() {
 
 var player: Phaser.Physics.Arcade.Sprite;
 var platforms: Phaser.Physics.Arcade.StaticGroup;
+var kolce;
+var meta;
 var cursors;
 function create() {
     createMap.bind(this)();
